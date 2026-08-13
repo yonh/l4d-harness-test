@@ -1,0 +1,14 @@
+# node
+node_modules/
+dist/
+*.log
+
+# os
+.DS_Store
+
+# env / secrets
+.env
+.secrets
+
+# vscode
+.vscode/

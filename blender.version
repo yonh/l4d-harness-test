@@ -1,0 +1,17 @@
+blender-mcp (shared dependency) pinned revision
+================================================
+repo : https://github.com/ahujasid/blender-mcp
+commit: 3ab8925
+title: fix: remove per-call polyhaven probe and serialize socket access to prevent MCP timeouts (#279)
+
+This repo is a nested vendor dependency with its own origin. We do NOT copy it
+into each test project. Instead we record this pinned revision so every agent
+can reproduce the identical blender-mcp server behavior.
+
+Reason it must be pinned:
+  - BlenderMCP addon v1.2 hard-refuses `--background` mode (addon.py lines 112-116);
+    server command execution depends on the GUI main-thread timer loop.
+  - All three agents talk to the SAME Blender instance (localhost:9876).
+  - Both Claude and Codex MCP client configs point at this package:
+      Claude: <proj>/.venv/bin/blender-mcp        (stdio)
+      Codex : uvx --python 3.11 blender-mcp       (stdio)

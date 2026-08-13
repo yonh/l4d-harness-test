@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L4D Rooftop — {AGENT}</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0b1220; }
+      #hud { position: fixed; inset: 0; pointer-events: none; color: #dfe8ff;
+             font: 16px/1.5 system-ui, sans-serif; }
+      #health { position: absolute; top: 12px; left: 12px; }
+      #objective { position: absolute; bottom: 12%; left: 50%; transform: translateX(-50%);
+                   background: rgba(0,0,0,.45); padding: 8px 16px; border-radius: 8px; }
+      #center-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+                    font-size: 22px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <canvas id="app"></canvas>
+    <div id="hud">
+      <div id="health">Health: 100</div>
+      <div id="objective">目标：离开安全屋，前往楼顶边缘</div>
+      <div id="center-msg"></div>
+    </div>
+    <script type="module" src="/src/main.mjs"></script>
+  </body>
+</html>

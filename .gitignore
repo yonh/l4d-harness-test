@@ -12,3 +12,6 @@ dist/
 
 # vscode
 .vscode/
+
+# orchestration run artifacts (never committed)
+runs/

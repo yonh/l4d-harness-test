@@ -25,6 +25,11 @@
 | 1 | `20260814-065854` | 2026-08-14 06:58 | `round/1` = `ddeb577` | `round/1` = `894e755` | `round/1` = `caa0219` | ✅ 完成（三路 verify 全 PASS）|
 | 2 | `20260814-121345` | 2026-08-14 12:13 | `round/2` = `b5245f3` | `round/2` = `c800702` | `round/2` = `30897d0` | ✅ 完成（三路 verify 全 PASS）|
 
+> **round/2 运行期修复**（2026-08-14 15:10，已提交到 round/2 分支）：
+> - 首页卡死 bug：CODEX/DSH 的 `index.html` 缺 `importmap`，源码 `import 'three'` 在浏览器原生 ESM 下无法解析 → 模块加载失败 → 卡在静态首页。
+> - 修复：CODEX `index.html` 补 importmap（含 `three/examples/jsm/` 映射）+ `src/loader.mjs` 将 vite 独有 `import url from '../x.glb'` 改为 `new URL(..., import.meta.url)`（CODEX 补丁 `3e3426a`）；DSH `index.html` 补 importmap（`bb56419`）。
+> - 验证：CDP 无头实测三路均可加载进入 Playing，零模块错误；仅剩 headless 环境 PointerLock 限制（真实浏览器无碍）。
+
 ## 客观分对比表（A1–A10，满分 20）
 
 | 轮次 | CLAUDE | CODEX | DSH | 备注 |

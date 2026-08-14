@@ -20,6 +20,14 @@ mkdir -p "$RUNS"
 
 log()  { printf '[run_harness] %s\n' "$*"; }
 
+# ---- 0. 批次前清理检查（防旧产物污染本轮）----
+CLEAN_SH="$ROOT/_harness-backup/orchestration/clean_round.sh"
+if [ -f "$CLEAN_SH" ]; then
+  log "批次前清理检查（clean_round.sh dry-run；如需实际清理先手动执行 --force）:"
+  bash "$CLEAN_SH" || true
+  echo
+fi
+
 # ---- 1. 生成实例化 prompt（逐字节一致，仅 AGENT 不同） ----
 mkdir -p "$RUNS/prompts"
 for ag in CLAUDE CODEX DSH DEVIN OPENCODE; do

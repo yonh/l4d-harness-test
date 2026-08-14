@@ -106,3 +106,16 @@
 - **DEVIN 首跑失败一次**（云端连接错误 `retryable`），重试后完成；期间修 3 个真实 bug（three.js track 语法 `A.b.c`→bracket-index、碰撞浮点边界、门 E 键锁存）并做像素级光照验证。
 - **DSH 吸取前轮教训**：GLB 零孤儿节点、出生点开阔、开场镜头实测推进。
 - 归档：五路 `round/5` 分支，master 回滚基线，全部 clean。
+
+## 计划：devin_swe1.7 独立测试（SWE-1.7 Max）
+
+- **状态**：⏳ 计划中（等 round/6 五路完成后执行）
+- **目录**：`l4d/devin_swe1.7`（git 仓库已建，起点 commit `b75c976`，与五路同基准、TASK 归一化 md5 一致）
+- **Agent 标记**：`DEVIN_SWE`（命名空间前缀 `DEVIN_SWE_`）
+- **模型**：`devin` CLI + `swe-1-7` = **SWE-1.7 Max**（262K context，Free；devin models list 确认）
+- **驱动**：`devin -p "<prompt>" --permission-mode dangerous`（prompt 用 dispatch_prompt 实例化 `DEVIN_SWE`）
+- **执行步骤**（round/6 完成后）：
+  1. `clean_round.sh --force`（清理工作区 + Blender 场景）
+  2. 派发：devin CLI 驱动 devin_swe1.7 路（subagent 或 CLI）
+  3. verify 打分 → 归档 `round/6-swe` 或独立 round 分支 → 更新 ROUNDS.md
+- **注意**：swe-1.7 是 SWE 专用模型（代码执行强项），与通用 deepseek-v4-flash-max 路不同档，结果**独立对比**（不混入五路排名）

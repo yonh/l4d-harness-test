@@ -75,3 +75,10 @@
 - DSH: `~/.dsh/settings.yaml` → `deepseek-v4-flash` + `reasoningEffort: max`
 - DEVIN: `~/.config/devin/config.json` → `deepseek-v4-flash-max`（devin models 确认存在）
 - 注意：Claude 网关对 `deepseek-v4-flash-max` 返回 ModelError，不可用该模型名
+
+## 排查记录（round/3 运行期）
+
+- **Codex 模型名坑（2026-08-14 实测）**：`~/.codex/config.toml` 若 `model = "gpt-5.6-terra"`（deepseek-v4-flash 的 slug 别名，codex 可能自动写入），
+  Codex 会话只输出 1 条开场白即 `turn.completed`（无任何工具调用/文件落地）。改回 `model = "deepseek-v4-flash"` 后恢复正常（33 事件/12 工具调用）。
+  结论：**Codex 必须写模型名 `deepseek-v4-flash`，不要用 slug**。与 HANDOFF 旧记录"gpt-5.6-* 工具执行力差"一致。
+- round/3 重派记录：CODEX 首次（bash-27 内）因上述坑空转，重派后正常；DSH 首次 subagent 失败（动画轨道讨论中终止），重派 `1226f5f1`。

@@ -86,8 +86,8 @@
 ## OpenCode 路接入（第 5 个 Agent，2026-08-14）
 
 - 项目目录 `l4d/opencode`（git 仓库，起点 commit `20275d2`，与四路同基准）
-- 驱动：`opencode run --model opencode/deepseek-v4-flash --variant max --format json --auto`
+- 驱动：`opencode run --model opencode-go/deepseek-v4-flash --variant max --format json --auto`
   （`--variant max` 对应 flash-max 档；`--auto` 自动批准权限；blender-mcp MCP 已配置）
-- **前置条件**：opencode provider（opencode-go / opencode / zen / zai-coding-plan）需余额与有效凭据；
-  实测 2026-08-14 opencode-go 报 `Insufficient balance`、zen 服务端错误、zai 认证失败 —— 接入后首跑前需解决。
+- **模型组合（重要）**：必须用 `opencode-go/deepseek-v4-flash`（`opencode/` 前缀走另一 provider 会报 `Insufficient balance`）；`--variant max` 对应 flash-max 档。
+  实测 2026-08-14：`opencode-go/deepseek-v4-flash` + `--variant max` 可用（回复正常）。
 - run_harness.sh 已支持五份 prompt（CLAUDE/CODEX/DSH/DEVIN/OPENCODE）+ 四 CLI 并行（DSH 仍走 subagent）。

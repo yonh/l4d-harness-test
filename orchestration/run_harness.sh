@@ -74,7 +74,7 @@ run_opencode() {
   cd "$dir" || return 1
   log "OPENCODE: launching in $dir"
   opencode run \
-    --model opencode/deepseek-v4-flash \
+    --model opencode-go/deepseek-v4-flash \
     --variant max \
     --format json \
     --auto \

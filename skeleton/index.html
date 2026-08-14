@@ -22,6 +22,17 @@
       <div id="objective">目标：离开安全屋，前往楼顶边缘</div>
       <div id="center-msg"></div>
     </div>
+    <!-- three.js importmap（必保留）：源码直接 import 'three' 需要浏览器解析裸说明符，
+         缺失会导致页面卡死在首页（模块加载失败）。若改用 vite 构建产物运行可省，但源码模式必须保留。 -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/",
+          "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
     <script type="module" src="/src/main.mjs"></script>
   </body>
 </html>

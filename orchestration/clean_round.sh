@@ -105,10 +105,18 @@ else
   log "=== 3. runs/ 保留(--keep-runs)==="
 fi
 
-# ---- 4. 共享 Blender 场景清理(可选提示)----
-log "=== 4. 共享 Blender 场景 ==="
-log "  [!] Blender 9876 是共享实例: 各 agent 只应清理自己前缀对象."
-log "  本轮开始前可让每个 agent 在建模时先清自己前缀(TASK §0.2)，无需外部干预."
+# ---- 4. 共享 Blender 场景清理 ----
+log "=== 4. 共享 Blender 场景(清除上一轮 Agent 前缀对象)==="
+BLENDER_CLEAN="$ROOT/_harness-backup/orchestration/blender_clean.py"
+if [ -f "$BLENDER_CLEAN" ]; then
+  if [ "$FORCE" = 1 ]; then
+    python3 "$BLENDER_CLEAN" --force
+  else
+    python3 "$BLENDER_CLEAN"
+  fi
+else
+  log "  [!] blender_clean.py 缺失，跳过"
+fi
 
 # ---- 5. 最终状态校验 ----
 log "=== 5. 清理后状态 ==="

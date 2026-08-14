@@ -82,3 +82,12 @@
   Codex 会话只输出 1 条开场白即 `turn.completed`（无任何工具调用/文件落地）。改回 `model = "deepseek-v4-flash"` 后恢复正常（33 事件/12 工具调用）。
   结论：**Codex 必须写模型名 `deepseek-v4-flash`，不要用 slug**。与 HANDOFF 旧记录"gpt-5.6-* 工具执行力差"一致。
 - round/3 重派记录：CODEX 首次（bash-27 内）因上述坑空转，重派后正常；DSH 首次 subagent 失败（动画轨道讨论中终止），重派 `1226f5f1`。
+
+## OpenCode 路接入（第 5 个 Agent，2026-08-14）
+
+- 项目目录 `l4d/opencode`（git 仓库，起点 commit `20275d2`，与四路同基准）
+- 驱动：`opencode run --model opencode/deepseek-v4-flash --variant max --format json --auto`
+  （`--variant max` 对应 flash-max 档；`--auto` 自动批准权限；blender-mcp MCP 已配置）
+- **前置条件**：opencode provider（opencode-go / opencode / zen / zai-coding-plan）需余额与有效凭据；
+  实测 2026-08-14 opencode-go 报 `Insufficient balance`、zen 服务端错误、zai 认证失败 —— 接入后首跑前需解决。
+- run_harness.sh 已支持五份 prompt（CLAUDE/CODEX/DSH/DEVIN/OPENCODE）+ 四 CLI 并行（DSH 仍走 subagent）。

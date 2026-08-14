@@ -119,3 +119,20 @@
   2. 派发：devin CLI 驱动 devin_swe1.7 路（subagent 或 CLI）
   3. verify 打分 → 归档 `round/6-swe` 或独立 round 分支 → 更新 ROUNDS.md
 - **注意**：swe-1.7 是 SWE 专用模型（代码执行强项），与通用 deepseek-v4-flash-max 路不同档，结果**独立对比**（不混入五路排名）
+
+## round/6（20260814-203749，五路 + SWE 独立项）
+
+| Agent | commit (round/6) | verify | GLB 节点 | 类别 | 备注 |
+|-------|------------------|--------|----------|------|------|
+| CLAUDE | `5836f96` | 25/25 | 76 | - | 开场镜头 |
+| CODEX | `9e1fd41` | 12/12 | 155 | - | 首跑因本地 API 服务挂(51105)失败→修复重派成功 |
+| DSH | `76fb55a` | 12/12 | 73 | 29 | 开场镜头实测(66→34 推近)、动画绑真实对象实测 |
+| DEVIN | `01b888d` | 22/22 | - | - | 修攻击半径边界 bug |
+| OPENCODE | `0d870ef` | 13/13 | 97 | - | 开场镜头+射线/像素探针(darkFrac 0.02) |
+| **DEVIN_SWE** | `d995ded` (round/6-swe) | 11/11 | 41 | 10 | **SWE-1.7 Max** 独立项；会话连接错误→编排者补 verify/README 兜底 |
+
+- **新机制验证**：clean_round.sh --force 首次实战（清空工作区缓存 + Blender 场景 10 个残留对象→0），
+  run_harness 第 0 步集成 dry-run 检查生效。
+- **CODEX 服务坑**：Codex 本地 API(localhost:51105) 随 ChatGPT 应用状态丢失 → 重启 ChatGPT + `app-server daemon start` 恢复。
+- **DEVIN_SWE**（swe-1-7 = SWE-1.7 Max, 262K, Free）：独立对比项，不混入五路 deepseek-v4-flash-max 排名。
+- 归档：5 路 `round/6` + `devin_swe1.7` `round/6-swe`，master 全回滚基线，全部 clean。

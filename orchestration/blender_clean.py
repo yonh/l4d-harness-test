@@ -111,7 +111,7 @@ for mesh in list(bpy.data.meshes):
         bpy.data.meshes.remove(mesh)
 print("REMOVED_OBJECTS:", sorted(removed))
 print("REMAINING_COUNT:", len(bpy.data.objects))
-""" % PREFIXES
+""" % (PREFIXES,)
     result = send_command("execute_code", {"code": code})
     print("[blender_clean] 执行结果:", json.dumps(result, ensure_ascii=False)[:600])
     print("[blender_clean] 完成。")

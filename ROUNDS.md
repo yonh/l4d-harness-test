@@ -29,6 +29,10 @@
 > - 首页卡死 bug：CODEX/DSH 的 `index.html` 缺 `importmap`，源码 `import 'three'` 在浏览器原生 ESM 下无法解析 → 模块加载失败 → 卡在静态首页。
 > - 修复：CODEX `index.html` 补 importmap（含 `three/examples/jsm/` 映射）+ `src/loader.mjs` 将 vite 独有 `import url from '../x.glb'` 改为 `new URL(..., import.meta.url)`（CODEX 补丁 `3e3426a`）；DSH `index.html` 补 importmap（`bb56419`）。
 > - 验证：CDP 无头实测三路均可加载进入 Playing，零模块错误；仅剩 headless 环境 PointerLock 限制（真实浏览器无碍）。
+>
+> **round/2 定向修复（评审反馈驱动，2026-08-14 15:30，已提交到 round/2 分支）**：
+> - **CODEX 地面大面积黑块/阴影**（评审反馈"地上总有阴影"）：根因 = 光照不足，`HemisphereLight(0x36486b,0x080b12,0.5)` 下半球近黑 + 月光 0.9 无补光，ACES 映射后暗部塌黑。A/B 像素验证（同渲染器同视角）：修复前地面 mean≈10.3 → 修复后 ≈13.0，暗部不再纯黑。修复 commit `2ee15a6`：加 `AmbientLight(0x223355,0.9)`、半球光升 `(0x3a4a6e,0x141c2e,0.9)`、月光 0.9→1.15；verify 19/0 PASS。非模型问题（GLB 独立渲染正常）、非多进程污染（全程仅 1 个 Blender 进程）。
+> - **DSH 完成度提升**（评审反馈"结束早、场景简单"）：commit `b205b36` —— Blender 场景 71→174 节点、材质 9→13、内嵌贴图 0→6（程序化 512px：地砖/锈/警示条/玻璃等）、新增管道群/通风井/排水沟/破损广告牌/水塔细化/杂物；敌人 Box 组合→关节骨架人形（Capsule+关节肢干）+ 动画改 `VectorKeyframeTrack`/`QuaternionKeyframeTrack`（消除 uuid 绑定 no-op 隐患）；光照冷月加强+暖点灯匹配。verify 10/10 PASS，无头 Chromium 零 console error。受限项（代码组合人形、AABB 碰撞、非 PBR）如实保留。
 
 ## 客观分对比表（A1–A10，满分 20）
 

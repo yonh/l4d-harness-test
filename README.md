@@ -2,7 +2,7 @@
 
 本仓库记录「求生之路楼顶开局」多 Agent（Claude / Codex / DSH）公平测试的**权威公共基准**（回回归测试的同步起点），不包含任何 Agent 的私有产出。
 
-> **⚠️ 新会话接手指南**：如果你是在一个全新会话中接手此工作，请先读本仓库根目录的 **`HANDOFF.md`**（交接文档），它记录了完整的环境状态、三路驱动方式、如何继续、关键坑与未完成事项。
+> **⚠️ 新会话接手指南**：如果你是在一个全新会话中接手此工作，请先读本仓库的 **`AGENTS.md`**（角色/环境/驱动方式/关键坑）→ **`README.md`**（本文件，基准与重新分发）→ **`ROUNDS.md`**（多轮回归轮次表与打分对比）→ `orchestration/dispatch.md`（三连派发说明）。
 
 ## 用途
 
@@ -13,7 +13,9 @@
 
 ```
 _harness-backup/
-├── README.md                        # 本文件
+├── README.md                        # 本文件（入口：基准 + 重新分发命令）
+├── AGENTS.md                        # 角色/环境状态/驱动方式/每轮流程/关键坑
+├── ROUNDS.md                        # 多轮回归轮次表与打分对比（source of truth）
 ├── L4D_ROOFTOP_TASK.md              # 修订版任务书（含 {AGENT} 占位符，FAIR-PLAY CONTRACT）
 ├── L4D_ROOFTOP_TASK.original.md     # 原始任务书备份
 ├── blender-mcp.skill/               # Blender MCP 技能全量（SKILL.md + references/），三项目共享同一份

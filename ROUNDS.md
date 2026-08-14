@@ -66,3 +66,12 @@
     多轮对比目前显示三路客观能力趋同，需主观复核或更高区分度验收项。
 - **跨轮对比口径**：客观分 = 三路各自 verify.sh + 编排者独立核验（GLB 解析/对象类别/语法/代码特征/命名空间/可运行性）。
   排名：客观分优先，主观分 tie-break。
+
+## 模型基准（round/3 起）
+
+- 统一档位：**deepseek-v4-flash max**（用户指定，2026-08-14 调整）
+- Claude: `deepseek-v4-flash[1m]` + `CLAUDE_CODE_EFFORT_LEVEL=max`（网关不支持 `-max` 后缀模型名，max 走 effort level）
+- Codex: `model=deepseek-v4-flash`（slug `gpt-5.6-terra`）+ `model_reasoning_effort="max"`
+- DSH: `~/.dsh/settings.yaml` → `deepseek-v4-flash` + `reasoningEffort: max`
+- DEVIN: `~/.config/devin/config.json` → `deepseek-v4-flash-max`（devin models 确认存在）
+- 注意：Claude 网关对 `deepseek-v4-flash-max` 返回 ModelError，不可用该模型名

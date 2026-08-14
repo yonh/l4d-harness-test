@@ -91,3 +91,18 @@
 - **模型组合（重要）**：必须用 `opencode-go/deepseek-v4-flash`（`opencode/` 前缀走另一 provider 会报 `Insufficient balance`）；`--variant max` 对应 flash-max 档。
   实测 2026-08-14：`opencode-go/deepseek-v4-flash` + `--variant max` 可用（回复正常）。
 - run_harness.sh 已支持五份 prompt（CLAUDE/CODEX/DSH/DEVIN/OPENCODE）+ 四 CLI 并行（DSH 仍走 subagent）。
+
+## round/5（20260814-184233，五路首次同步）
+
+| Agent | commit (round/5) | verify | GLB 节点 | 对象类别 | 亮点 |
+|-------|------------------|--------|----------|----------|------|
+| CLAUDE | `7b269ff` | 23/23 | 59 | 11 | 7 模块含游戏状态机 |
+| CODEX | `8c853e0` | 22/22 | 74 | 15 | 9 模块含开场 |
+| DSH | `e6ce227` | 10/10 | 65 | 18 | 开场镜头实测生效、18 类对象、零孤儿 |
+| DEVIN | `88de05e` | 7/7（含光照检查）| 71 | 10 | 修 3 bug（动画绑定语法/碰撞 epsilon/门锁存）+ E2E 全流程 |
+| OPENCODE | `e3c3219` | 13/13 | 71 | 14 | 首跑成功、5 贴图、gltf-transform 0 error |
+
+- **OPENCODE 首次接入即完成**：`opencode run --model opencode-go/deepseek-v4-flash --variant max --format json --auto`（模型必须用 `opencode-go/` 前缀）。
+- **DEVIN 首跑失败一次**（云端连接错误 `retryable`），重试后完成；期间修 3 个真实 bug（three.js track 语法 `A.b.c`→bracket-index、碰撞浮点边界、门 E 键锁存）并做像素级光照验证。
+- **DSH 吸取前轮教训**：GLB 零孤儿节点、出生点开阔、开场镜头实测推进。
+- 归档：五路 `round/5` 分支，master 回滚基线，全部 clean。

@@ -1,6 +1,6 @@
 # Dispatch Prompt（三连派发统一提示词）
 
-> 本文件是派发给 Claude / Codex / DSH 三个 Agent 的**逐字节一致的初始提示词模板**。
+> 本文件是派发给各参与 Agent 的**逐字节一致的初始提示词模板**。
 > 唯一的差异是 `${AGENT}` 占位符，派发时分别实例化为 `CLAUDE` / `CODEX` / `DSH`。
 > 公平性要求：除 `${AGENT}` 外，三个 Agent 收到的提示词必须完全一致。
 
